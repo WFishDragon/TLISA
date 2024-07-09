@@ -61,8 +61,6 @@ public class DeptServiceImpl implements DeptService {
      */
     @Override
     public void update(Dept dept) {
-        System.out.println("啊啊啊");
-        System.out.println(dept);
         deptMapper.update(dept);
     }
 }
