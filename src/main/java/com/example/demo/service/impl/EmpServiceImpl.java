@@ -20,6 +20,7 @@ public class EmpServiceImpl implements EmpService {
 
     /**
      * 分页查询
+     *
      * @param page
      * @param pageSize
      * @return
@@ -27,17 +28,18 @@ public class EmpServiceImpl implements EmpService {
     @Override
     public PageBean page(Integer page, Integer pageSize, String name, Short gender, LocalDate begin, LocalDate end) {
         //设置分页参数
-        PageHelper.startPage(page,pageSize);
+        PageHelper.startPage(page, pageSize);
         //获取分页查询列表
-        List<Emp> empList = empMapper.list(name,gender,begin,end);
+        List<Emp> empList = empMapper.list(name, gender, begin, end);
         Page<Emp> p = (Page<Emp>) empList;
         //封装PageBean
-        PageBean pageBean = new PageBean(p.getTotal(),p.getResult());
+        PageBean pageBean = new PageBean(p.getTotal(), p.getResult());
         return pageBean;
     }
 
     /**
      * 批量删除员工信息
+     *
      * @param ids
      */
     @Override
@@ -47,6 +49,7 @@ public class EmpServiceImpl implements EmpService {
 
     /**
      * 添加员工信息
+     *
      * @param emp
      */
     @Override
@@ -54,5 +57,37 @@ public class EmpServiceImpl implements EmpService {
         emp.setUpdateTime(LocalDateTime.now());
         emp.setCreateTime(LocalDateTime.now());
         empMapper.addEmp(emp);
+    }
+
+    /**
+     * 根据id查询员工信息
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Emp getById(Integer id) {
+        return empMapper.getById(id);
+    }
+
+    /**
+     * 根据id更新员工信息
+     *
+     * @param emp
+     */
+    @Override
+    public void update(Emp emp) {
+        emp.setUpdateTime(LocalDateTime.now());
+        empMapper.update(emp);
+    }
+
+    /**
+     * 登录校验
+     * @param emp
+     * @return
+     */
+    @Override
+    public Emp login(Emp emp) {
+        return empMapper.login(emp);
     }
 }
